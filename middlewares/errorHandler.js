@@ -1,5 +1,13 @@
 const errorHandler = (err, req, res, next) => {
-  console.error(err.stack); // Log full error for debugging
+  console.error(err.stack);
+
+   // 404 Not Found errors
+   if (err.status === 404) {
+    return res.status(404).json({ 
+      success: false, 
+      error: err.message || "Resource not found" 
+    });
+  }
 
   // Handle Mongoose validation errors
   if (err.name === "ValidationError") {
