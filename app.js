@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import "dotenv/config"
 import errorHandler from "./middlewares/errorHandler.js";
-import recipesRoutes from "./routes/recipesRoutes.js"
+import recipesRoutes from "./routes/recipesRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
+import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // API Routes
 app.use("/api/recipes", recipesRoutes);
+app.use("/api/users", usersRoutes);
 
 // Error Handler
 app.use(errorHandler);
