@@ -1,5 +1,6 @@
 import Recipe from "../models/recipe.js";
 import User from "../models/user.js";
+import Comment from "../models/comment.js";
 
 export const getAllRecipes = async (req, res, next) => {
   console.log(`🚀 ${req.method} request for all recipes`);
@@ -54,7 +55,11 @@ export const getRecipeById = async (req, res, next) => {
   console.log(`🚀 ${req.method} request for recipe ID: ${req.params.id}`);
 
   try {
-    const result = await Recipe.findById(req.params.id);
+    const result = await Recipe.findById(req.params.id)
+      .populate({
+        path: "comments", 
+        populate: { path: "userId", select: "username avatar" } 
+      });
 
     if (!result) {
       const error = new Error("Recipe not found");
