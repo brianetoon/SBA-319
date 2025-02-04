@@ -21,9 +21,8 @@ const recipeSchema = new mongoose.Schema({
     type: String
   },
   userId: {
-    // type: mongoose.Schema.Types.ObjectId, 
-    // ref: 'User', 
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
     required: true 
   }
 
@@ -31,3 +30,6 @@ const recipeSchema = new mongoose.Schema({
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 export default Recipe;
+
+// "679fcc7f615ccc7f185ec100"
+// "679fcd22615ccc7f185ec103"
