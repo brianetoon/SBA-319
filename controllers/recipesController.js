@@ -1,12 +1,13 @@
 import Recipe from "../models/recipe.js";
 import User from "../models/user.js";
-import Comment from "../models/comment.js";
 
 export const getAllRecipes = async (req, res, next) => {
   console.log(`🚀 ${req.method} request for all recipes`);
 
   try {
-    const result = await Recipe.find();
+    const filter = req.query.userId ? { userId: req.query.userId } : {};
+    const result = await Recipe.find(filter);
+
     res.status(200).json({ success: true, data: result });
   } catch(err) {
     next(err); 
@@ -99,3 +100,15 @@ export const updateRecipe = async (req, res, next) => {
     next(err)
   }
 }
+
+export const getRecipesByUser = async (req, res, next) => {
+  console.log(`🚀 ${req.method} request for recipes by user ID: ${req.params.id}`);
+
+  try {
+    const recipes = await Recipe.find({ userId: req.params.id });
+
+    res.status(200).json({ success: true, data: recipes });
+  } catch (err) {
+    next(err);
+  }
+};

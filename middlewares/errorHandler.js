@@ -9,7 +9,6 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Handle Mongoose validation errors
   if (err.name === "ValidationError") {
     return res.status(400).json({
       success: false,
@@ -18,7 +17,6 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Handle CastErrors (e.g., invalid MongoDB ObjectId)
   if (err.name === "CastError") {
     return res.status(400).json({
       success: false,
@@ -29,7 +27,7 @@ const errorHandler = (err, req, res, next) => {
   // Generic Server Error
   res.status(500).json({
     success: false,
-    error: err.message || "Something went wrong",
+    error: err.message || "Something went wrong 🤷",
   });
 };
 

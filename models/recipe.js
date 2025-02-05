@@ -28,18 +28,19 @@ const recipeSchema = new mongoose.Schema({
 
 }, {timestamps: true });
 
+// Virutal comments property
 recipeSchema.virtual("comments", {
   ref: "Comment",
   localField: "_id", 
   foreignField: "recipeId"
 });
 
+// Use case - fetch all recipes by a specific user 
+// This is done in getAllRecipes via query param
+recipeSchema.index({ userId: 1 });
+
 recipeSchema.set("toObject", { virtuals: true });
 recipeSchema.set("toJSON", { virtuals: true });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 export default Recipe;
-
-// User IDs
-// "679fcc7f615ccc7f185ec100"
-// "679fcd22615ccc7f185ec103"
